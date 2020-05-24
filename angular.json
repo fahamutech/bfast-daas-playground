@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "bfast-daas-playgound"
+    }
+  },
+  "defaultProject": "bfast-daas-playgound",
+  "cli": {
+    "analytics": "1d7a3c5e-5de0-4174-8e3a-ab6d4c1a23ee"
+  }
 }

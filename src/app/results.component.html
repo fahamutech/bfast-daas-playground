@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<div>
+  <mat-card-subtitle mat-dialog-title>Results</mat-card-subtitle>
+  <div mat-dialog-content>
+    <div>
+      <json-editor [debug]="false" [data]="data.results" [options]="resultsJsonOptions"></json-editor>
+    </div>
+  </div>
+  <mat-dialog-actions>
+    <button mat-button (click)="dialogRef.close(true)" color="primary">Close</button>
+  </mat-dialog-actions>
+</div>
