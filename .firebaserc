@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "bfastapp"
+  },
+  "targets": {
+    "bfastapp": {
+      "hosting": {
+        "playground": [
+          "bfast-playground"
+        ]
+      }
+    }
+  }
+}

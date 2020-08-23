@@ -1,0 +1,17 @@
+{
+  "hosting": {
+    "target": "playground",
+    "public": "dist/bfast-daas-playgound",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

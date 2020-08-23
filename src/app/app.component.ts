@@ -5,6 +5,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {JsonEditorComponent, JsonEditorOptions} from 'ang-jsoneditor';
 import {MatDialog} from '@angular/material/dialog';
 import {ResultsComponent} from './results.component';
+import compile = WebAssembly.compile;
 
 @Component({
   selector: 'app-root',
@@ -33,6 +34,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     try {
       this.data = JSON.parse(localStorage.getItem('lastRule'));
     } catch (e) {
