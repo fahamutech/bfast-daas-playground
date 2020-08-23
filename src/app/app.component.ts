@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   execProgress = false;
   serverUrlFormControl = new FormControl('', [
     Validators.nullValidator,
-    Validators.pattern(new RegExp('(^http[s]?:\\/{2})|(^www)|(^\\/{1,2})')),
+    // Validators.pattern(new RegExp('(^http[s]?:\\/{2})|(^www)|(^\\/{1,2})')),
     Validators.required
   ]);
   form: FormGroup;
@@ -86,7 +86,12 @@ export class AppComponent implements OnInit {
 
   addServerUrl() {
     if (this.serverUrlFormControl.valid) {
-      this.serverUrl = this.serverUrlFormControl.value;
+      const value = this.serverUrlFormControl.value;
+      if (value.toString().startsWith('http://') || value.toString().startsWith('https://')) {
+        this.serverUrl = value;
+      } else {
+        this.serverUrl = `https://${value}-daas.bfast.fahamutech.com`;
+      }
       try {
         localStorage.setItem('serverUrl', this.serverUrl);
       } catch (e) {

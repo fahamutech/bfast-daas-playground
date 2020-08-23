@@ -1,8 +1,8 @@
 <div *ngIf="!serverUrl"
      style="display: flex; flex-direction: column; min-height: 100vh; justify-content: center; align-items: center">
-  <h1>BFast::Database</h1>
+  <h1>BFast Database Playground</h1>
   <mat-form-field appearance="outline" style="width: 300px">
-    <mat-label>Server Url</mat-label>
+    <mat-label>databaseUrl / projectId </mat-label>
     <label>
       <input matInput type="text" [formControl]="serverUrlFormControl">
     </label>
@@ -14,8 +14,8 @@
   </button>
 </div>
 
-<div style="min-height: 100vh;" *ngIf="serverUrl">
-  <mat-toolbar class="mat-elevation-z3" >
+<div style="display: flex; flex-direction: column" *ngIf="serverUrl">
+  <mat-toolbar style="flex-grow: 0" class="mat-elevation-z3" >
     <button (click)="removeServerUrl()" mat-icon-button>
       <mat-icon>close</mat-icon>
     </button>
@@ -23,23 +23,26 @@
     <span style="overflow-y: hidden; text-overflow: ellipsis" matLine>[ {{serverUrl}} ]</span>
   </mat-toolbar>
 
-  <div style="display: flex; flex-direction: row">
-    <div style="flex-grow: 1">
-      <form [formGroup]="form" (submit)="submit()">
-        <json-editor  [debug]="false" [options]="editorOptions" formControlName="rules">
-        </json-editor>
-      </form>
+  <div style="flex-grow: 1">
+    <div style="display: flex; flex-direction: column">
+      <div style="flex-grow: 1">
+        <form [formGroup]="form" (submit)="submit()">
+          <json-editor  [debug]="false" [options]="editorOptions" formControlName="rules">
+          </json-editor>
+        </form>
+      </div>
     </div>
   </div>
 
-  <div style="position: fixed;bottom: 73px;left: 30px;">
-    <mat-progress-spinner *ngIf="execProgress" style="display: inline-block; position: fixed" mode="indeterminate"
+  <div style="position: fixed;bottom: 73px;left: 40px;">
+    <mat-progress-spinner *ngIf="execProgress"  style="display: inline-block; position: fixed" mode="indeterminate"
                           diameter="50">
 
     </mat-progress-spinner>
     <button [disabled]="execProgress" (click)="exec()" mat-icon-button color="primary"
-            style="position: absolute; margin: 5px" class="mat-elevation-z3">
-      <mat-icon>play_arrow</mat-icon>
+            style="position: absolute; margin: 5px;z-index: 4000000" class="mat-elevation-z3">
+      <mat-icon style="">play_arrow</mat-icon>
     </button>
   </div>
+
 </div>
