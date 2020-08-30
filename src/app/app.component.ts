@@ -5,7 +5,6 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {JsonEditorComponent, JsonEditorOptions} from 'ang-jsoneditor';
 import {MatDialog} from '@angular/material/dialog';
 import {ResultsComponent} from './results.component';
-import compile = WebAssembly.compile;
 
 @Component({
   selector: 'app-root',
@@ -34,7 +33,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     try {
       this.data = JSON.parse(localStorage.getItem('lastRule'));
     } catch (e) {
@@ -65,7 +63,11 @@ export class AppComponent implements OnInit {
     }
     localStorage.setItem('lastRule', JSON.stringify(rules));
     this.execProgress = true;
-    this.httpClient.post(this.serverUrl, rules).toPromise()
+    this.httpClient.post(this.serverUrl, rules, {
+      headers: {
+        'x-parse-application-id': rules.applicationId
+      }
+    }).toPromise()
       .then(value => {
         this.execProgress = false;
         this.results = value;
@@ -92,9 +94,10 @@ export class AppComponent implements OnInit {
       if (value.toString().startsWith('http://') || value.toString().startsWith('https://')) {
         this.serverUrl = value;
       } else {
-        this.serverUrl = `https://${value}-daas.bfast.fahamutech.com`;
+        this.serverUrl = `https://${value}-daas.bfast.fahamutech.com/v2`;
       }
       try {
+        localStorage.setItem('lastRule', JSON.stringify({applicationId: ''}));
         localStorage.setItem('serverUrl', this.serverUrl);
       } catch (e) {
         console.warn(e);
