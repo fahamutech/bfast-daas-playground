@@ -40,15 +40,17 @@ export class AppComponent implements OnInit {
     }
     this.serverUrl = localStorage.getItem('serverUrl');
     this.form = this.formBuilder.group({
-      rules: [this.data]
+      rules: [this.data, []]
     });
     this.editorOptions = new JsonEditorOptions();
-    this.editorOptions.modes = ['code', 'tree'];
-    this.editorOptions.expandAll = true;
+    this.editorOptions.modes = ['code', 'tree', 'form', 'text'];
+    this.editorOptions.mode = 'code';
+    // this.editorOptions.expandAll = true;
   }
 
   exec() {
     const rules = this.form.value.rules;
+    // console.log(rules);
     if (!rules) {
       this.snack.open('Rules object required', 'Ok', {
         duration: 3000
@@ -63,11 +65,7 @@ export class AppComponent implements OnInit {
     }
     localStorage.setItem('lastRule', JSON.stringify(rules));
     this.execProgress = true;
-    this.httpClient.post(this.serverUrl, rules, {
-      headers: {
-        'x-parse-application-id': rules.applicationId
-      }
-    }).toPromise()
+    this.httpClient.post(this.serverUrl, rules).toPromise()
       .then(value => {
         this.execProgress = false;
         this.results = value;
@@ -81,6 +79,7 @@ export class AppComponent implements OnInit {
         });
       })
       .catch(reason => {
+        console.log(reason);
         this.execProgress = false;
         this.snack.open(reason && reason.message ? reason.message : 'Fails to exec your rules', 'Ok', {
           duration: 3000

@@ -27,7 +27,9 @@
     <div style="display: flex; flex-direction: column">
       <div style="flex-grow: 1">
         <form [formGroup]="form" (submit)="submit()">
-          <json-editor  [debug]="false" [options]="editorOptions" formControlName="rules">
+          <json-editor  [debug]="false"
+                        [options]="editorOptions"
+                        formControlName="rules">
           </json-editor>
         </form>
       </div>
